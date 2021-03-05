@@ -9,6 +9,8 @@ import { Auth } from "aws-amplify";
 import { useHistory } from "react-router-dom";
 import { onError } from "./libs/errorLib";
 import ErrorBoundary from "./components/ErrorBoundary";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faShoppingCart, faPhone } from "@fortawesome/free-solid-svg-icons"
 
 function App() {
   const history = useHistory();
@@ -43,11 +45,19 @@ function App() {
 
   return (
     !isAuthenticating && (
-      <div className="App container py-3">
+      <div className="App">
+        <div className="contact-align">
+          <Navbar className="top-bar">
+            <a className="contact-icon" href="tel:(888)309-8076">
+              <FontAwesomeIcon icon={faPhone} />
+              (888)309-8076
+            </a>
+          </Navbar>
+        </div>
         <Navbar collapseOnSelect bg="light" expand="md" className="mb-3">
           <LinkContainer to="/">
             <Navbar.Brand className="font-weight-bold text-muted">
-              Scratch
+              <img src="https://www.griptite.com/wp-content/themes/onegrip/images/logo.jpg" alt="Grip-Tite" className="GT-logo"/>
             </Navbar.Brand>
           </LinkContainer>
           <Navbar.Toggle />
@@ -55,6 +65,9 @@ function App() {
             <Nav activeKey={window.location.pathname}>
               {isAuthenticated ? (
                 <>
+                  <LinkContainer to="/cart">
+                    <Nav.Link><FontAwesomeIcon icon={faShoppingCart} /></Nav.Link>
+                  </LinkContainer>
                   <LinkContainer to="/settings">
                     <Nav.Link>Settings</Nav.Link>
                   </LinkContainer>
@@ -62,9 +75,6 @@ function App() {
                 </>
               ) : (
                 <>
-                  <LinkContainer to="/signup">
-                    <Nav.Link>Signup</Nav.Link>
-                  </LinkContainer>
                   <LinkContainer to="/login">
                     <Nav.Link>Login</Nav.Link>
                   </LinkContainer>
